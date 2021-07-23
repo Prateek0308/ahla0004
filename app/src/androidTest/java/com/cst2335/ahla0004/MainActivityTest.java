@@ -38,36 +38,132 @@ public class MainActivityTest {
 
     @Test
     public void mainActivityTest() {
+
         ViewInteraction appCompatEditText = onView( withId(R.id.editTextTextPassword));
 
         appCompatEditText.perform(replaceText("12345"), closeSoftKeyboard());
 
-        ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(R.id.editTextTextPassword), withText("12345"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                2),
-                        isDisplayed()));
-        appCompatEditText2.perform(pressImeActionButton());
 
-        ViewInteraction materialButton = onView(
-                allOf(withId(R.id.bt), withText("Login"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
-                        isDisplayed()));
+        ViewInteraction materialButton = onView(withId(R.id.bt));
+
         materialButton.perform(click());
 
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.textView), withText("You shall not pass!"),
-                        withParent(withParent(withId(android.R.id.content))),
-                        isDisplayed()));
+        ViewInteraction textView = onView(withId(R.id.textView));
+
         textView.check(matches(withText("You shall not pass!")));
     }
+
+   @Test
+   public void findMissingUpperCase() {
+
+         //type the view
+
+       ViewInteraction appCompatEditText = onView( withId(R.id.editTextTextPassword));
+
+       //type in password123#$*
+
+       appCompatEditText.perform(replaceText("123#$*"));
+
+       //find the button
+
+       ViewInteraction materialButton = onView(withId(R.id.bt));
+
+       //click the button
+
+       materialButton.perform(click());
+
+       //find the text view
+
+       ViewInteraction textView = onView(withId(R.id.textView));
+
+       //check the text
+
+       textView.check(matches(withText("You shall not pass!")));
+   }
+
+   @Test
+   public void findMissingLowerCase() {
+
+       //type the view
+
+       ViewInteraction appCompatEditText = onView( withId(R.id.editTextTextPassword));
+
+       //type in password123#$*
+
+       appCompatEditText.perform(replaceText("123#$*"));
+
+       //find the button
+
+       ViewInteraction materialButton = onView(withId(R.id.bt));
+
+       //click the button
+
+       materialButton.perform(click());
+
+       //find the text view
+
+       ViewInteraction textView = onView(withId(R.id.textView));
+
+       //check the text
+
+       textView.check(matches(withText("You shall not pass!")));
+   }
+
+   @Test
+   public void findMissingNumber() {
+
+       //type the view
+
+       ViewInteraction appCompatEditText = onView( withId(R.id.editTextTextPassword));
+
+       //type in password123#$*
+
+       appCompatEditText.perform(replaceText("123#$*"));
+
+       //find the button
+
+       ViewInteraction materialButton = onView(withId(R.id.bt));
+
+       //click the button
+
+       materialButton.perform(click());
+
+       //find the text view
+
+       ViewInteraction textView = onView(withId(R.id.textView));
+
+       //check the text
+
+       textView.check(matches(withText("You shall not pass!")));
+   }
+
+   @Test
+   public void findMissingSpecial() {
+
+       //type the view
+
+       ViewInteraction appCompatEditText = onView( withId(R.id.editTextTextPassword));
+
+       //type in password123#$*
+
+       appCompatEditText.perform(replaceText("123#$*"));
+
+       //find the button
+
+       ViewInteraction materialButton = onView(withId(R.id.bt));
+
+       //click the button
+
+       materialButton.perform(click());
+
+       //find the text view
+
+       ViewInteraction textView = onView(withId(R.id.textView));
+
+       //check the text
+
+       textView.check(matches(withText("You shall not pass!")));
+   }
 
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
@@ -85,6 +181,8 @@ public class MainActivityTest {
                 return parent instanceof ViewGroup && parentMatcher.matches(parent)
                         && view.equals(((ViewGroup) parent).getChildAt(position));
             }
+
+
         };
     }
 }
